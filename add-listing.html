@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Surplus Food Listing — EcoPlate | Bennett University</title>
+  <meta name="description" content="Add a new campus canteen surplus food listing with portion details, preparation time, and collection deadline.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Academic Prototype Disclaimer Banner -->
+  <div class="safety-banner">
+    <strong>Academic Prototype</strong>
+    <span>Bennett University • Technology & Sustainability (2026CSAE102) • Single-browser LocalStorage demo</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link" id="navBrand">
+        <div class="brand-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div class="brand-title">
+          EcoPlate <span class="tag">Campus</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" id="navHome">Home</a></li>
+          <li><a href="food.html" class="nav-link" id="navFood">Available Food</a></li>
+          <li><a href="dashboard.html" class="nav-link" id="navDashboard">Impact Dashboard</a></li>
+          <li><a href="about.html" class="nav-link" id="navAbout">About & Safety</a></li>
+          <li><a href="add-listing.html" class="nav-link nav-btn-cta active" id="navAddListing">+ List Surplus Food</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Toggle navigation menu" id="mobileToggleBtn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="page-header-content">
+        <div>
+          <h1 class="page-header-title">Post Surplus Food Listing</h1>
+          <p class="page-header-subtitle">
+            Record surplus prepared food from campus canteens, messes, or tuck shops to enable rapid student and volunteer pickup before expiry.
+          </p>
+        </div>
+        <div>
+          <a href="food.html" class="btn btn-outline">
+            ← Back to Food Board
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <div class="form-container">
+        <form id="addListingForm" novalidate>
+          <div class="form-grid">
+
+            <!-- Food Name -->
+            <div class="form-group full-width">
+              <label for="foodName" class="form-label">
+                Food Name / Description <span class="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="foodName" 
+                name="foodName" 
+                class="form-input" 
+                placeholder="e.g. Vegetable Pulao with Dal Makhani" 
+                required
+              />
+              <span class="field-error" id="foodNameError">Please enter the food name (minimum 3 characters).</span>
+              <span class="field-hint">Specify the main dish and accompaniments clearly.</span>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+              <label for="category" class="form-label">
+                Food Category <span class="required">*</span>
+              </label>
+              <select id="category" name="category" class="form-select" required>
+                <option value="">Select category...</option>
+                <option value="Meal">Meal (Cooked Food)</option>
+                <option value="Bakery">Bakery / Breads</option>
+                <option value="Fruit/Vegetable">Fruit / Vegetable</option>
+                <option value="Packaged Food">Packaged Food</option>
+                <option value="Snacks">Snacks & Evening Items</option>
+              </select>
+              <span class="field-error" id="categoryError">Please select a category.</span>
+            </div>
+
+            <!-- Provider / Mess Name -->
+            <div class="form-group">
+              <label for="provider" class="form-label">
+                Campus Provider / Mess <span class="required">*</span>
+              </label>
+              <select id="provider" name="provider" class="form-select" required>
+                <option value="">Select canteen or mess...</option>
+                <option value="Mess 1 (Dining Hall Ground Floor)">Mess 1 (Dining Hall Ground Floor)</option>
+                <option value="Mess 1 (Dining Hall 1st Floor)">Mess 1 (Dining Hall 1st Floor)</option>
+                <option value="Mess 2 (North Hostel Wing)">Mess 2 (North Hostel Wing)</option>
+                <option value="Campus Tuck Shop & Bakery">Campus Tuck Shop & Bakery</option>
+                <option value="Cafeteria C-Block">Cafeteria C-Block</option>
+                <option value="Night Canteen (Student Center)">Night Canteen (Student Center)</option>
+              </select>
+              <span class="field-error" id="providerError">Please select or enter the provider.</span>
+            </div>
+
+            <!-- Quantity -->
+            <div class="form-group">
+              <label for="quantity" class="form-label">
+                Quantity Available <span class="required">*</span>
+              </label>
+              <input 
+                type="number" 
+                id="quantity" 
+                name="quantity" 
+                class="form-input" 
+                placeholder="e.g. 25" 
+                min="1" 
+                step="1"
+                required
+              />
+              <span class="field-error" id="quantityError">Quantity must be a positive number greater than 0.</span>
+            </div>
+
+            <!-- Quantity Unit -->
+            <div class="form-group">
+              <label for="unit" class="form-label">
+                Quantity Unit <span class="required">*</span>
+              </label>
+              <select id="unit" name="unit" class="form-select" required>
+                <option value="portions">portions</option>
+                <option value="meals">meals / plates</option>
+                <option value="kg">kg (kilograms)</option>
+                <option value="boxes">boxes / packets</option>
+              </select>
+              <span class="field-error" id="unitError">Please select a valid unit.</span>
+            </div>
+
+            <!-- Preparation Time -->
+            <div class="form-group">
+              <label for="preparedAt" class="form-label">
+                Preparation Time <span class="required">*</span>
+              </label>
+              <input 
+                type="datetime-local" 
+                id="preparedAt" 
+                name="preparedAt" 
+                class="form-input" 
+                required
+              />
+              <span class="field-error" id="preparedAtError">Please provide preparation date and time.</span>
+              <span class="field-hint">Time when this food was cooked or dispatched.</span>
+            </div>
+
+            <!-- Pickup Deadline -->
+            <div class="form-group">
+              <label for="pickupDeadline" class="form-label">
+                Pickup Deadline <span class="required">*</span>
+              </label>
+              <input 
+                type="datetime-local" 
+                id="pickupDeadline" 
+                name="pickupDeadline" 
+                class="form-input" 
+                required
+              />
+              <span class="field-error" id="pickupDeadlineError">Pickup deadline must be in the future and after preparation time.</span>
+              <span class="field-hint">Safe consumption limit before food must be discarded.</span>
+            </div>
+
+            <!-- Pickup Location -->
+            <div class="form-group full-width">
+              <label for="pickupLocation" class="form-label">
+                Exact Campus Pickup Location <span class="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="pickupLocation" 
+                name="pickupLocation" 
+                class="form-input" 
+                placeholder="e.g. Mess 1 Service Counter B (Ground Floor near Exit 2)" 
+                required
+              />
+              <span class="field-error" id="pickupLocationError">Please provide the exact campus pickup spot.</span>
+            </div>
+
+            <!-- Contact Person (Optional) -->
+            <div class="form-group">
+              <label for="contactPerson" class="form-label">
+                Staff / Supervisor Name
+              </label>
+              <input 
+                type="text" 
+                id="contactPerson" 
+                name="contactPerson" 
+                class="form-input" 
+                placeholder="e.g. Supervisor Rajesh"
+              />
+            </div>
+
+            <!-- Contact Phone (Optional) -->
+            <div class="form-group">
+              <label for="contactPhone" class="form-label">
+                Contact Phone / Intercom
+              </label>
+              <input 
+                type="tel" 
+                id="contactPhone" 
+                name="contactPhone" 
+                class="form-input" 
+                placeholder="e.g. +91 98765 43210 or Ext. 402"
+              />
+            </div>
+
+            <!-- Notes / Packaging details -->
+            <div class="form-group full-width">
+              <label for="notes" class="form-label">
+                Storage & Packaging Notes
+              </label>
+              <textarea 
+                id="notes" 
+                name="notes" 
+                class="form-textarea" 
+                rows="2" 
+                placeholder="e.g. Kept hot in insulated bins. Please bring containers or clean bags."
+              ></textarea>
+            </div>
+
+            <!-- Food Safety Declaration Checkbox -->
+            <div class="form-group full-width">
+              <label class="checkbox-card">
+                <input type="checkbox" id="safetyDeclaration" required />
+                <div class="checkbox-card-content">
+                  <strong>Food Safety & Hygiene Acknowledgment</strong>
+                  I confirm that this surplus food has been prepared following standard campus hygiene practices, has been kept under safe storage temperatures, and is suitable for human consumption within the stated deadline.
+                </div>
+              </label>
+              <span class="field-error" id="safetyDeclarationError">You must accept the food safety acknowledgment before posting.</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-group full-width" style="display:flex; gap:1rem; margin-top:1rem;">
+              <button type="submit" class="btn btn-primary" style="flex:1;" id="btnSubmitListing">
+                Publish Surplus Food Listing
+              </button>
+              <a href="food.html" class="btn btn-outline" style="flex:0 0 auto;">
+                Cancel
+              </a>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>
+            <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:var(--primary-400);"></span>
+            EcoPlate Campus Platform
+          </h4>
+          <p>
+            Enabling Bennett University messes and canteens to coordinate surplus food responsibly.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="food.html">Available Food</a></li>
+            <li><a href="add-listing.html">Post Surplus Food</a></li>
+            <li><a href="dashboard.html">Impact Dashboard</a></li>
+            <li><a href="about.html">About & Safety</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h5>Project Team</h5>
+          <ul>
+            <li>Hannu Kumar Gupta (S26CSEU3130)</li>
+            <li>Samir Kumar (S26CSEU3117)</li>
+            <li>Akshat Sharma (S26CSEU3116)</li>
+            <li>Kumar Vibhuti Ranjan (S26CSEU3114)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 EcoPlate Project Team • Bennett University (2026CSAE102)
+        </div>
+        <div>
+          <button id="btnResetDemo" class="btn btn-outline btn-sm" style="color:#d8f3dc; border-color:rgba(255,255,255,0.2);">
+            ↺ Reset Demo Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Pre-populate sensible default times (e.g. prepared 30m ago, pickup deadline 3h from now)
+    document.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      const preparedTime = new Date(now.getTime() - 30 * 60 * 1000);
+      const deadlineTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+
+      const toLocalISO = (d) => {
+        const offset = d.getTimezoneOffset() * 60000;
+        return new Date(d.getTime() - offset).toISOString().slice(0, 16);
+      };
+
+      const prepInput = document.getElementById('preparedAt');
+      const deadlineInput = document.getElementById('pickupDeadline');
+      if (prepInput) prepInput.value = toLocalISO(preparedTime);
+      if (deadlineInput) deadlineInput.value = toLocalISO(deadlineTime);
+
+      // Form submission validation
+      const form = document.getElementById('addListingForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        let isValid = true;
+
+        // Reset errors
+        document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
+        document.querySelectorAll('.form-input, .form-select').forEach(el => el.classList.remove('is-invalid'));
+
+        // Validate Food Name
+        const foodName = document.getElementById('foodName');
+        if (!foodName.value.trim() || foodName.value.trim().length < 3) {
+          foodName.classList.add('is-invalid');
+          document.getElementById('foodNameError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Category
+        const category = document.getElementById('category');
+        if (!category.value) {
+          category.classList.add('is-invalid');
+          document.getElementById('categoryError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Provider
+        const provider = document.getElementById('provider');
+        if (!provider.value.trim()) {
+          provider.classList.add('is-invalid');
+          document.getElementById('providerError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Quantity
+        const quantity = document.getElementById('quantity');
+        const qtyNum = Number(quantity.value);
+        if (isNaN(qtyNum) || qtyNum <= 0) {
+          quantity.classList.add('is-invalid');
+          document.getElementById('quantityError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Prepared Time
+        const preparedAt = document.getElementById('preparedAt');
+        if (!preparedAt.value) {
+          preparedAt.classList.add('is-invalid');
+          document.getElementById('preparedAtError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Pickup Deadline: must be future and > preparedAt
+        const pickupDeadline = document.getElementById('pickupDeadline');
+        const nowMs = new Date().getTime();
+        const deadlineMs = new Date(pickupDeadline.value).getTime();
+        const prepMs = new Date(preparedAt.value).getTime();
+
+        if (!pickupDeadline.value || isNaN(deadlineMs) || deadlineMs <= nowMs || deadlineMs <= prepMs) {
+          pickupDeadline.classList.add('is-invalid');
+          document.getElementById('pickupDeadlineError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Location
+        const pickupLocation = document.getElementById('pickupLocation');
+        if (!pickupLocation.value.trim()) {
+          pickupLocation.classList.add('is-invalid');
+          document.getElementById('pickupLocationError').classList.add('visible');
+          isValid = false;
+        }
+
+        // Validate Checkbox
+        const safetyDeclaration = document.getElementById('safetyDeclaration');
+        if (!safetyDeclaration.checked) {
+          document.getElementById('safetyDeclarationError').classList.add('visible');
+          isValid = false;
+        }
+
+        if (!isValid) {
+          window.showToast('Please correct the highlighted form errors.', 'error');
+          return;
+        }
+
+        // Construct Listing Data Object
+        const newListingData = {
+          foodName: foodName.value,
+          category: category.value,
+          quantity: qtyNum,
+          unit: document.getElementById('unit').value,
+          provider: provider.value,
+          preparedAt: new Date(preparedAt.value).toISOString(),
+          pickupDeadline: new Date(pickupDeadline.value).toISOString(),
+          pickupLocation: pickupLocation.value,
+          contactPerson: document.getElementById('contactPerson').value,
+          contactPhone: document.getElementById('contactPhone').value,
+          notes: document.getElementById('notes').value
+        };
+
+        const created = window.StorageEngine.addListing(newListingData);
+        window.showToast(`Listing "${created.foodName}" successfully published!`, 'success');
+
+        // Redirect to food board after brief moment
+        setTimeout(() => {
+          window.location.href = 'food.html';
+        }, 800);
+      });
+    });
+  </script>
+</body>
+</html>

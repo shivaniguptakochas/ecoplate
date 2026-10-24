@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Food Listings — EcoPlate | Campus Food Surplus</title>
+  <meta name="description" content="Browse, search, and reserve surplus food listings from Bennett University dining halls and canteens.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Academic Prototype Disclaimer Banner -->
+  <div class="safety-banner">
+    <strong>Academic Prototype</strong>
+    <span>Bennett University • Technology & Sustainability (2026CSAE102) • Single-browser LocalStorage demo</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link" id="navBrand">
+        <div class="brand-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div class="brand-title">
+          EcoPlate <span class="tag">Campus</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" id="navHome">Home</a></li>
+          <li><a href="food.html" class="nav-link" id="navFood">Available Food</a></li>
+          <li><a href="dashboard.html" class="nav-link" id="navDashboard">Impact Dashboard</a></li>
+          <li><a href="about.html" class="nav-link" id="navAbout">About & Safety</a></li>
+          <li><a href="add-listing.html" class="nav-link nav-btn-cta" id="navAddListing">+ List Surplus Food</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Toggle navigation menu" id="mobileToggleBtn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Internal Page Header -->
+    <section class="page-header">
+      <div class="page-header-content">
+        <div>
+          <h1 class="page-header-title">Surplus Food Listings</h1>
+          <p class="page-header-subtitle">
+            Browse current campus canteen surplus meals, check pickup deadlines, and coordinate reservations before food goes to waste.
+          </p>
+        </div>
+        <div>
+          <a href="add-listing.html" class="btn btn-primary" id="btnPageAddListing">
+            + Post New Surplus
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <!-- Search and Filter Controls Bar -->
+      <section class="controls-bar" aria-label="Surplus Food Search and Filters">
+        <div class="controls-top">
+          <!-- Keyword Search -->
+          <div class="search-box">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input 
+              type="text" 
+              id="foodSearchInput" 
+              class="search-input" 
+              placeholder="Search by food name, mess (e.g. Mess 1), or location..." 
+              aria-label="Search surplus food"
+            />
+          </div>
+
+          <!-- Category Filter Dropdown -->
+          <select id="categoryFilter" class="filter-select" aria-label="Filter by food category">
+            <option value="All">All Categories</option>
+            <option value="Meal">Meals & Cooked Food</option>
+            <option value="Bakery">Bakery & Breads</option>
+            <option value="Fruit/Vegetable">Fruits & Fresh Produce</option>
+            <option value="Packaged Food">Packaged Goods</option>
+            <option value="Snacks">Snacks & Evening Items</option>
+          </select>
+
+          <!-- Sort Order Dropdown -->
+          <select id="sortFilter" class="filter-select" aria-label="Sort listings">
+            <option value="deadline-asc">Pickup Deadline (Urgent first)</option>
+            <option value="qty-desc">Quantity (Highest first)</option>
+            <option value="newest">Recently Posted</option>
+          </select>
+        </div>
+
+        <!-- Status Filter Chips -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+          <div class="filter-chips">
+            <span class="chip-label">Status:</span>
+            <button class="chip active" data-status="All">All Listings</button>
+            <button class="chip" data-status="Available">Available</button>
+            <button class="chip" data-status="Reserved">Reserved</button>
+            <button class="chip" data-status="Collected">Collected</button>
+            <button class="chip" data-status="Expired">Expired</button>
+          </div>
+
+          <div id="resultsCount" style="font-size:0.875rem; color:var(--text-muted); font-weight:600;">
+            Loading listings...
+          </div>
+        </div>
+      </section>
+
+      <!-- Listings Grid (Injected via js/listings.js) -->
+      <section id="listingsGrid" class="listings-grid" aria-live="polite">
+        <!-- Javascript renders food cards here -->
+      </section>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>
+            <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:var(--primary-400);"></span>
+            EcoPlate Campus Platform
+          </h4>
+          <p>
+            Surplus food coordination system for Bennett University dining halls and campus residences. Supporting SDG 12 (Responsible Consumption & Production).
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="food.html">Available Food</a></li>
+            <li><a href="add-listing.html">Post Surplus Food</a></li>
+            <li><a href="dashboard.html">Impact Dashboard</a></li>
+            <li><a href="about.html">About & Food Safety</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h5>Project Team</h5>
+          <ul>
+            <li>Hannu Kumar Gupta (S26CSEU3130)</li>
+            <li>Samir Kumar (S26CSEU3117)</li>
+            <li>Akshat Sharma (S26CSEU3116)</li>
+            <li>Kumar Vibhuti Ranjan (S26CSEU3114)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 EcoPlate Project Team • Bennett University (2026CSAE102)
+        </div>
+        <div>
+          <button id="btnResetDemo" class="btn btn-outline btn-sm" style="color:#d8f3dc; border-color:rgba(255,255,255,0.2);">
+            ↺ Reset Demo Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/listings.js"></script>
+</body>
+</html>

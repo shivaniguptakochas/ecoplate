@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Impact Dashboard — EcoPlate | Bennett University</title>
+  <meta name="description" content="Real-time campus food waste reduction metrics, collection rates, and surplus food distribution data for Bennett University.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Academic Prototype Disclaimer Banner -->
+  <div class="safety-banner">
+    <strong>Academic Prototype</strong>
+    <span>Bennett University • Technology & Sustainability (2026CSAE102) • Single-browser LocalStorage demo</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link" id="navBrand">
+        <div class="brand-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div class="brand-title">
+          EcoPlate <span class="tag">Campus</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" id="navHome">Home</a></li>
+          <li><a href="food.html" class="nav-link" id="navFood">Available Food</a></li>
+          <li><a href="dashboard.html" class="nav-link active" id="navDashboard">Impact Dashboard</a></li>
+          <li><a href="about.html" class="nav-link" id="navAbout">About & Safety</a></li>
+          <li><a href="add-listing.html" class="nav-link nav-btn-cta" id="navAddListing">+ List Surplus Food</a></li>
+        </ul>
+      </nav>
+
+      <button class="mobile-toggle" aria-label="Toggle navigation menu" id="mobileToggleBtn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="page-header-content">
+        <div>
+          <div style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:0.4rem;">
+            <span class="card-category">SDG 12 & SDG 2 Monitoring</span>
+            <span class="badge-demo">Demo / Browser Data</span>
+          </div>
+          <h1 class="page-header-title">Campus Sustainability Impact Dashboard</h1>
+          <p class="page-header-subtitle">
+            Dynamic metrics computed from local browser records showing surplus food listed, collected, and diverted from waste across Bennett University facilities.
+          </p>
+        </div>
+        <div style="display:flex; gap:0.75rem;">
+          <a href="food.html" class="btn btn-outline">
+            View Live Listings
+          </a>
+          <button onclick="handleExportData()" class="btn btn-primary" title="Export local listings as JSON">
+            Export JSON
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-container" id="dashboardContent">
+      <!-- Top Primary KPI Metric Cards -->
+      <section class="metrics-row" aria-label="Campus Sustainability KPI Cards">
+        
+        <!-- Total Listings Card -->
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Total Listings</span>
+            <div class="metric-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+          </div>
+          <div class="metric-value" id="metricTotalListings">0</div>
+          <div class="metric-sub">Surplus food entries created</div>
+        </article>
+
+        <!-- Listed Quantity Card -->
+        <article class="metric-card accent-amber">
+          <div class="metric-header">
+            <span class="metric-label">Total Food Listed</span>
+            <div class="metric-icon" style="background:#fef3c7; color:#92400e;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+          </div>
+          <div class="metric-value" id="metricTotalListedQty">0</div>
+          <div class="metric-sub">Cumulative portions / units recorded</div>
+        </article>
+
+        <!-- Collected Quantity Card -->
+        <article class="metric-card accent-blue">
+          <div class="metric-header">
+            <span class="metric-label">Total Collected</span>
+            <div class="metric-icon" style="background:#e0f2fe; color:#0369a1;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+          </div>
+          <div class="metric-value" id="metricTotalCollectedQty">0</div>
+          <div class="metric-sub">Diverted from waste to recipients</div>
+        </article>
+
+        <!-- Collection Rate Card -->
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Collection Rate</span>
+            <div class="metric-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+          </div>
+          <div class="metric-value" id="metricCollectionRate">0%</div>
+          <div class="metric-sub">Collected ÷ Listed × 100</div>
+        </article>
+
+        <!-- Expired / Uncollected Card -->
+        <article class="metric-card accent-red">
+          <div class="metric-header">
+            <span class="metric-label">Expired / Unclaimed</span>
+            <div class="metric-icon" style="background:#fee2e2; color:#991b1b;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+          </div>
+          <div class="metric-value" id="metricExpiredCount">0</div>
+          <div class="metric-sub">Past pickup deadline (uncollected)</div>
+        </article>
+
+      </section>
+
+      <!-- Visual Breakdown Charts -->
+      <div class="dashboard-grid">
+        <!-- Status Breakdown Progress -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Listing Status Distribution</span>
+            <span style="font-size:0.8rem; font-weight:500; color:var(--text-muted);">Real-time status</span>
+          </div>
+          <div id="statusBreakdownList" class="progress-list">
+            <!-- Injected via dashboard.js -->
+          </div>
+        </div>
+
+        <!-- Food Category Breakdown -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span>Breakdown by Food Category</span>
+            <span style="font-size:0.8rem; font-weight:500; color:var(--text-muted);">Meals vs Bakery vs Produce</span>
+          </div>
+          <div id="categoryBreakdownList" class="progress-list">
+            <!-- Injected via dashboard.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Campus Provider Participation -->
+      <div class="dashboard-card" style="margin-bottom:2rem;">
+        <div class="dashboard-card-title">
+          <span>Campus Facility & Mess Participation</span>
+          <span style="font-size:0.8rem; font-weight:500; color:var(--text-muted);">Bennett University Canteens</span>
+        </div>
+        <div id="providerBreakdownList">
+          <!-- Injected via dashboard.js -->
+        </div>
+      </div>
+
+      <!-- Recent Activity Audit Table -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">
+          <span>Recent Surplus Food Activity Log</span>
+          <span style="font-size:0.8rem; font-weight:500; color:var(--text-muted);">Audit trail of recorded listings</span>
+        </div>
+        <div class="activity-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Food Item</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Canteen / Provider</th>
+                <th>Status</th>
+                <th>Recorded Time</th>
+              </tr>
+            </thead>
+            <tbody id="recentActivityTableBody">
+              <!-- Injected via dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Academic & Data Storage Notice -->
+      <div style="margin-top:2.5rem; background:white; border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.5rem; font-size:0.875rem; color:var(--text-muted);">
+        <strong style="color:var(--primary-900); display:block; margin-bottom:0.35rem;">Note on Prototype Metrics & Storage Architecture:</strong>
+        This dashboard reads directly from the current browser's <code>LocalStorage</code> container (<code>ecoplateListings</code>). In a full multi-user production deployment, this would be backed by a centralized relational or cloud database with real-time websocket synchronization across dining halls, staff handhelds, and volunteer apps. All figures shown above reflect local demonstration data.
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>
+            <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:var(--primary-400);"></span>
+            EcoPlate Campus Platform
+          </h4>
+          <p>
+            Smart food surplus coordination prototype built for Bennett University. Designed to measure and minimize campus food waste through transparent digital logging.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="food.html">Available Food</a></li>
+            <li><a href="add-listing.html">Post Surplus Food</a></li>
+            <li><a href="dashboard.html">Impact Dashboard</a></li>
+            <li><a href="about.html">About & Safety</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h5>Project Team</h5>
+          <ul>
+            <li>Hannu Kumar Gupta (S26CSEU3130)</li>
+            <li>Samir Kumar (S26CSEU3117)</li>
+            <li>Akshat Sharma (S26CSEU3116)</li>
+            <li>Kumar Vibhuti Ranjan (S26CSEU3114)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 EcoPlate Project Team • Bennett University (2026CSAE102)
+        </div>
+        <div>
+          <button id="btnResetDemo" class="btn btn-outline btn-sm" style="color:#d8f3dc; border-color:rgba(255,255,255,0.2);">
+            ↺ Reset Demo Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    function handleExportData() {
+      const listings = window.StorageEngine.getListings();
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(listings, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `ecoplate_listings_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      window.showToast('Listings JSON exported successfully!', 'success');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoPlate — Smart Campus Food Waste Reduction Platform | Bennett University</title>
+  <meta name="description" content="EcoPlate coordinates surplus food from Bennett University canteens and messes with authorized student volunteers and collection drives to minimize food waste.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Academic Prototype Disclaimer Banner -->
+  <div class="safety-banner">
+    <strong>Academic Prototype</strong>
+    <span>Bennett University • Technology & Sustainability (2026CSAE102) • Single-browser LocalStorage demo</span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link" id="navBrand">
+        <div class="brand-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <div class="brand-title">
+          EcoPlate <span class="tag">Campus</span>
+        </div>
+      </a>
+
+      <!-- Desktop & Mobile Navigation Links -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link" id="navHome">Home</a></li>
+          <li><a href="food.html" class="nav-link" id="navFood">Available Food</a></li>
+          <li><a href="dashboard.html" class="nav-link" id="navDashboard">Impact Dashboard</a></li>
+          <li><a href="about.html" class="nav-link" id="navAbout">About & Safety</a></li>
+          <li><a href="add-listing.html" class="nav-link nav-btn-cta" id="navAddListing">+ List Surplus Food</a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-toggle" aria-label="Toggle navigation menu" id="mobileToggleBtn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div>
+          <div class="hero-badge">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            SDG 12 & SDG 2 Sustainability Initiative
+          </div>
+          <h1 class="hero-title">
+            Bridging Campus Surplus <br><span class="highlight">Before It Becomes Waste</span>
+          </h1>
+          <p class="hero-subtitle">
+            EcoPlate empowers campus canteens and hostel messes to rapidly communicate prepared surplus food, coordinating timely collection with verified campus members and community volunteers.
+          </p>
+          <div class="hero-actions">
+            <a href="food.html" class="btn btn-primary" id="heroBtnBrowse">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              Browse Surplus Food
+            </a>
+            <a href="add-listing.html" class="btn btn-secondary" id="heroBtnAdd">
+              + Post Canteen Surplus
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Quick Stats Card -->
+        <div class="hero-stats-card">
+          <div class="hero-stats-title">
+            <span>Prototype Live Metrics</span>
+            <span class="badge-demo">Local Demo</span>
+          </div>
+          <div class="hero-stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="heroStatListings">--</div>
+              <div class="stat-label">Active & Recorded Listings</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="heroStatCollected">--</div>
+              <div class="stat-label">Portions / Units Diverted</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="heroStatRate">--%</div>
+              <div class="stat-label">Collection Rate</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="heroStatAvailable">--</div>
+              <div class="stat-label">Currently Available</div>
+            </div>
+          </div>
+          <div style="margin-top: 1.25rem; text-align: center;">
+            <a href="dashboard.html" style="color: var(--primary-200); font-size: 0.85rem; font-weight: 600; text-decoration: underline;">
+              View Full Campus Impact Dashboard →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section class="section">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="section-eyebrow">The Challenge</span>
+          <h2 class="section-title">The Campus Food Surplus Paradox</h2>
+          <p class="section-desc">
+            College canteens and hostel messes must prepare meals at scale, yet daily attendance fluctuates unpredictably. Without a dedicated channel, safe surplus food remains uncommunicated and discarded.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number" style="background:#fee2e2; color:#991b1b;">1</div>
+            <h3 class="step-title">Unpredictable Demand</h3>
+            <p>Fluctuating student attendance due to exams, weekends, and holidays creates recurring preparation surpluses that are hard to forecast manually.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number" style="background:#fef3c7; color:#92400e;">2</div>
+            <h3 class="step-title">Informal Communication</h3>
+            <p>Relying on scattered WhatsApp groups or word-of-mouth makes it difficult to broadcast real-time food quantities, exact locations, and strict collection windows.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number" style="background:#d1fae5; color:#065f46;">3</div>
+            <h3 class="step-title">The EcoPlate Fix</h3>
+            <p>A transparent, structured digital board that enables immediate surplus posting, simple reservation, verified collection tracking, and auditable waste metrics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section section-alt">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Seamless Coordination</span>
+          <h2 class="section-title">How EcoPlate Works in 3 Steps</h2>
+          <p class="section-desc">Designed specifically for quick staff handovers and transparent campus volunteer logistics.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Canteens Post Surplus</h3>
+            <p>Mess supervisors enter food name, portions, preparation time, and exact pickup deadline before food reaches critical hold limits.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Recipients Reserve</h3>
+            <p>Authorized student volunteers or campus organizations claim the listing with a single click, instantly preventing duplicate collection attempts.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Timely Handover & Metric</h3>
+            <p>Food is collected at the designated campus counter. Status is marked <strong>Collected</strong>, directly updating the campus sustainability impact dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SDG Alignment Section -->
+    <section class="section">
+      <div class="page-container">
+        <div class="section-header">
+          <span class="section-eyebrow">UN Sustainable Development Goals</span>
+          <h2 class="section-title">Rooted in Global Sustainability Targets</h2>
+          <p class="section-desc">EcoPlate directly implements actionable monitoring toward UN SDG 12 and indirectly supports SDG 2.</p>
+        </div>
+
+        <div class="sdg-grid">
+          <div class="sdg-card">
+            <div class="sdg-badge-icon sdg-12">
+              <span class="sdg-number">12</span>
+              <span class="sdg-label">SDG</span>
+            </div>
+            <div class="sdg-content">
+              <h3>SDG 12: Responsible Consumption and Production</h3>
+              <p>Target 12.3 aims to halve per capita global food waste by 2030 and reduce food losses along production and supply chains. EcoPlate measures surplus prevention rates directly at campus dining halls.</p>
+            </div>
+          </div>
+
+          <div class="sdg-card">
+            <div class="sdg-badge-icon sdg-2">
+              <span class="sdg-number">2</span>
+              <span class="sdg-label">SDG</span>
+            </div>
+            <div class="sdg-content">
+              <h3>SDG 2: Zero Hunger & Access to Nutrition</h3>
+              <p>By connecting verified surplus meals with night-shift campus support staff and authorized charity partners, safe nutritious food reaches those who can benefit without unnecessary disposal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="section section-alt" style="text-align: center;">
+      <div class="page-container" style="max-width:750px;">
+        <h2 class="section-title" style="margin-bottom:1rem;">Ready to See Campus Surplus in Real-Time?</h2>
+        <p class="section-desc" style="margin-bottom:2rem;">
+          Explore current live surplus listings, test reservations, or view how campus dining metrics calculate on the live dashboard.
+        </p>
+        <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+          <a href="food.html" class="btn btn-primary">Browse Available Food</a>
+          <a href="add-listing.html" class="btn btn-solid-dark">+ Create Surplus Listing</a>
+          <a href="dashboard.html" class="btn btn-outline">Explore Impact Dashboard</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>
+            <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:var(--primary-400);"></span>
+            EcoPlate Campus Platform
+          </h4>
+          <p>
+            A smart campus food waste reduction prototype developed for Technology & Sustainability (2026CSAE102) at Bennett University, Greater Noida.
+          </p>
+          <div style="margin-top:1rem; font-size:0.8rem; color:#8fa896;">
+            Bennett University • First Year B.Tech CSE • Academic Year 2026
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h5>Platform Pages</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="food.html">Available Food Listings</a></li>
+            <li><a href="add-listing.html">Post Surplus Food</a></li>
+            <li><a href="dashboard.html">Impact Dashboard</a></li>
+            <li><a href="about.html">About & Food Safety</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h5>Project Team</h5>
+          <ul>
+            <li>Hannu Kumar Gupta (S26CSEU3130)</li>
+            <li>Samir Kumar (S26CSEU3117)</li>
+            <li>Akshat Sharma (S26CSEU3116)</li>
+            <li>Kumar Vibhuti Ranjan (S26CSEU3114)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 EcoPlate Project Team. Single-browser prototype with LocalStorage data persistence.
+        </div>
+        <div>
+          <button id="btnResetDemo" class="btn btn-outline btn-sm" style="color:#d8f3dc; border-color:rgba(255,255,255,0.2);">
+            ↺ Reset Sample Demo Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Populate Hero Live Preview Metrics from LocalStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const stats = window.StorageEngine.getDashboardStats();
+      const heroListings = document.getElementById('heroStatListings');
+      const heroCollected = document.getElementById('heroStatCollected');
+      const heroRate = document.getElementById('heroStatRate');
+      const heroAvailable = document.getElementById('heroStatAvailable');
+
+      if (heroListings) heroListings.textContent = stats.totalListings;
+      if (heroCollected) heroCollected.textContent = stats.totalQuantityCollected;
+      if (heroRate) heroRate.textContent = `${stats.collectionRate}%`;
+      if (heroAvailable) heroAvailable.textContent = stats.availableCount;
+    });
+  </script>
+</body>
+</html>
